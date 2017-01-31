@@ -4,7 +4,7 @@ Note: Considering that Latest Node.js installed in system
 1. First open the command line and write:
     npm install -g create-react-app
 
-This command will create the project global in system with all react dependencies
+    This command will create the project global in system with all react dependencies
 
 2. Then run below command:
     create-react-app my-app
