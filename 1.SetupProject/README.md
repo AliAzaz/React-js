@@ -1,3 +1,6 @@
+Note: Considering that Latest Node.js installed in system
+
+
 1. First open the command line and write:
     npm install -g create-react-app
 
