@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /* Class component that allows React component to have life cycle methods and state.
+      Class components have two instance properties, 
+      this.state and this.props, that represent the component's state and properties respectively.*/
+
+        class Info extends React.Component{
+          render(){
+            return <h1>Hi! That class component</h1>
+          }
+        }
+
+        ReactDOM.render(
+          <Info />,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>
