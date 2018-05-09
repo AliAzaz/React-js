@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+        
+        // Embed javascript into JSX
+
+// Example 1
+        var str = "Ali Azaz";
+        var element = <p> Hi {str}  here!! </p>;
+
+// Example 2 - Crating object
+      var vehicle = {
+        name : "Suzuki",
+        model : "2017",
+        cc : "150CC",
+        price : 155
+      }
+
+      var element = <p><strong>Motorbike:</strong> {vehicle.name} {vehicle.model} {vehicle.cc} PKR.{vehicle.price}</p>
+
+//  Example 3 - Dealing Attributes
+      var element = <button className ="submitBtn">CLICK HERE</button>
+
+//  Example 3 - Dealing Attributes 2
+      var reactIntro = {
+        name : "react image",
+        imageURL : "https://reactjs.org/logo-og.png",
+        width: 500,
+        height : 500
+      }
+      
+      function CalculateRadius(width,height){
+        return width * height/2;
+      }
+
+      var styling = {
+        borderRadius:CalculateRadius(reactIntro.width,reactIntro.height)
+      }
+
+      var element = <img src={reactIntro.imageURL} alt={reactIntro.name} width={reactIntro.width} height ={reactIntro.height} style={styling}/>
+
+      // Inline styling
+      var element = <img src={reactIntro.imageURL} alt={reactIntro.name} width={reactIntro.width} height ={reactIntro.height} style={{borderRadius:CalculateRadius(reactIntro.width,reactIntro.height)}}/>
+
+
+//  Example 3 - Dealing Attributes 3
+
+        var tabCol =
+         <td>
+          <img src={reactIntro.imageURL} alt={reactIntro.name} width={reactIntro.width/5} height ={reactIntro.height/5} style={{borderRadius:CalculateRadius(reactIntro.width,reactIntro.height)}} />
+         </td>
+
+         // introducing arrays
+        var columns = [];
+        var rows = [];
+        
+        // Implementing traditional for loop
+         function GenerateColumns(){
+          for(var i=0;i<2;i++){
+            columns.push(tabCol);
+          }
+          return columns;
+         }
+
+         function GenerateRows(){
+            rows.push(<tr>{GenerateColumns()}</tr>);
+            columns = [];
+            return rows;
+         }
+        
+      function CreateView(){
+        var element =
+        <table>
+          {GenerateRows()}
+        </table>
+
+          ReactDOM.render(
+           element,document.getElementById("root")
+          )
+      }
+
+      setInterval(CreateView,1000);
+
+    </script>
+
+</body>
+
+</html>

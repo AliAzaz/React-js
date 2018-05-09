@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+     
+//  Functional component that outputs React elements. On basis of convention, first letter of function will be capitalized.
+
+    // Example 1
+    function Intro(){
+      return (<h3>Hi!! My name is Ali</h3>)
+    }
+    // Remove coment for view
+    /*ReactDOM.render(
+      <Intro />,document.getElementById('root')
+    )*/
+
+    // Example 2: Passing properties through arguments
+
+    // NOTE: Properties can be string literals, arrays or any other type of JavaScript object including other React Elements
+
+    function Intro(msg){
+        return (<h3>Hi!! My name is {msg.name}</h3>)
+    }
+    // Remove coment for view
+    /*ReactDOM.render(
+      <Intro name = "Khan"/>,document.getElementById('root')
+    )*/
+
+    // Example 3:
+
+    function PrintData(arg){
+      let elements = []; //Initialize any object by using: var or let
+        for(var i = 0 ; i < arg.numberArray.length ; i++){
+         elements.push(<h2>{arg.numberArray[i]}</h2>)
+        }
+      return <div>{elements}</div>;
+    }
+    // Remove coment for view
+    /*ReactDOM.render(
+        <PrintData numberArray={[1,2,3,4,5]}/>,
+        document.getElementById("root")
+    )*/
+
+    // Example 4
+
+    var reactIntro = {
+        name : "react image",
+        imageURL : "https://reactjs.org/logo-og.png",
+        width: 200,
+        height : 200
+      }
+
+    var styling = {
+        borderRadius:100
+      }
+
+    function PrintImage(data){
+      return <img src={data.link.imageURL} alt={data.link.name} width={data.link.width} height ={data.link.height} style={data.styles} />
+    }
+
+    // Pass more then one properties
+    ReactDOM.render(
+        <PrintImage link = {reactIntro} styles = {styling}/>,
+        document.getElementById("root")
+    )
+
+    </script>
+
+</body>
+
+</html>

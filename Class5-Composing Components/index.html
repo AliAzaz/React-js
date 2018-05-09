@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    function PrintTitle(params) {
+      return(
+        <h1>{params.title}</h1>
+      )
+    }
+
+    function TelephoneRecords(params) {
+      return(
+        <li>{params.name} : {params.num}</li>
+      )
+    }
+
+    function creatingRecords(params){
+     return (
+       // use of Map as Map works same as like foreach loop that it can iterate through all indexes
+      params.telArray.map((anObjectMapped) => 
+        <TelephoneRecords name = {anObjectMapped.key} num = {anObjectMapped.value}/>
+      ) 
+
+     )
+    }
+
+    function TelephoneItems(params) {
+      return(
+        <ul>
+          <thead>{params.title}</thead>
+          {creatingRecords(params)}
+        </ul>
+      )
+    }
+
+    function TelephoneBook(params) {
+      // pass objects as properties
+      return(
+        <div>
+          <PrintTitle title = "TELEPHONE BOOK"/>
+          <TelephoneItems title = "Emergency no" telArray={[{key:"Police" ,value: 15}, {key:"Fire Brigate" ,value: 7071}]}/>
+          <TelephoneItems title = "Others" telArray={[{key:"Ptcl" ,value: 1010}]}/>
+        </div>
+      )
+    }
+
+    ReactDOM.render(
+      <TelephoneBook />,
+      document.getElementById("root")
+    )
+
+  </script>
+
+</body>
+
+</html>

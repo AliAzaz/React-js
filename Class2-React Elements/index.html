@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root">
+
+      <div id="body"></div>
+      <div id="numbers"></div>
+
+    </div>
+
+    <script type="text/babel">
+        
+        //Creating react element
+        var element = <div> <h1>Hello World</h1> <p>This is my first react application</p></div>;
+
+        ReactDOM.render(
+          element,
+          document.getElementById("body")
+        )
+
+        // Implement loop: Once a DOM is rendered, it will remain the same until another render() method is called.
+
+        var numa=1;
+        function IncrementNumber(){
+          ReactDOM.render(
+            <div>Increments:{numa++}</div>,
+            document.getElementById("numbers")
+          )
+        }
+
+        setInterval(IncrementNumber,1000);
+
+    </script>
+
+  </body>
+</html>

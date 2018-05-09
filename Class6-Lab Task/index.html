@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+</head>
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 50%
+  }
+
+  table, th, td {
+      border: 1px solid #dbdbdb;
+  }
+
+  th{
+      background-color: #e8e8e8;  
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+</style>
+
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    // converting 'convertindex.html' to react.js composing component
+
+    function PrintHeading(arg){
+      switch(arg.type){
+        case "h2":
+          return <h2>{arg.title}</h2>
+          break
+        case "p":
+          return <p>{arg.title}</p>
+          break;
+      }
+    }
+
+    function InputBox(arg){
+      switch (arg.type) {
+        case "checkbox":
+          return <input type={arg.prop.type} id={arg.prop.id} name={arg.prop.name} value={arg.prop.value} defaultChecked={arg.prop.check}/>
+          break;
+        
+        case "button":
+          return <button>{arg.name}</button>
+          break;
+
+        case "dropDown":
+          return (
+           <select>
+            {optionsPrint(arg.prop,"option")}
+           </select> 
+          )
+          break;
+      }
+    }
+
+    function optionsPrint(arg,type){
+      let opt = [];
+      for (let index = 0; index < arg.length; index++) {
+        if(type == "option"){
+          opt.push(<option key={arg[index].key}>{arg[index].value}</option>)
+        } else if (type == "th"){
+          opt.push(<th>{arg[index]}</th>)
+        } else if (type == "td"){
+          opt.push(<td>{arg[index]}</td>)
+        }
+      }
+      return opt;
+    }
+
+    function InsertInput(arg){
+      return (
+        <div>
+          {arg.title}
+          <InputBox type={arg.inputType} prop={arg.propArray}/>
+        </div>
+      )
+    }
+
+    function PrintTableDiv(arg){
+      return (
+        <div>
+          <PrintHeading title={arg.title} type="h2"/>
+          {printTableMultiUL(arg)}
+        </div>
+      )
+    }
+
+    function printTableMultiUL(arg){
+      let multiUL = [];
+      for (let index = 0; index < arg.dataArray.length; index++) {
+        multiUL.push(
+          <ul>
+            <InsertTable headArray={arg.headArray} dataArray={arg.dataArray[index]}/>
+          </ul>
+        )
+      }
+
+      return multiUL;
+      
+    }
+
+    function InsertTable(arg){
+      return(
+        <table>
+          <InsertTableTHTD type="th" data={arg.headArray}/>
+          <InsertTableTHTD type="td" data={arg.dataArray}/>
+        </table>
+      )
+    }
+
+    function InsertTableTHTD(arg){
+      return (
+        <tr>
+          {optionsPrint(arg.data,arg.type)}
+          {arg.type == "td" && <InputBox type="button" name="Buy Now"/>}
+        </tr>
+      )
+    }
+
+    function LabAssigApp(params) {
+      return (
+        <div>
+          <PrintHeading title="Welcome to React Transportation" type="h2"/>
+          <PrintHeading title="The best place to buy vehicles online" type="p"/>
+          <PrintHeading title="Choose Options" type="h2"/>
+          <InsertInput title="New Only" inputType="checkbox" propArray={{type:"checkbox",id:"coding",name:"interest",value:"coding",check:true}}/>
+          <InsertInput title="Select Type" inputType="dropDown" propArray={[{key:"All",value:"All"},{key:"Cars",value:"Cars"},{key:"Trucks",value:"Trucks"},{key:"Convertibles",value:"Convertibles"}]}/>
+          
+          <PrintTableDiv title="Cars" headArray={["Year","Model","Price","Buy"]} dataArray={[["2013","A","$32000"],["2011","B","$44000"],["2016","B","$15500"]]}/>
+
+          <PrintTableDiv title="Trucks" headArray={["Year","Model","Price","Buy"]} dataArray={[["2013","A","$32000"],["2011","B","$44000"]]}/>
+
+          <PrintTableDiv title="Convertibles" headArray={["Year","Model","Price","Buy"]} dataArray={[["2013","A","$32000"],["2011","B","$44000"],["2016","B","$15500"],["2017","M","$50000"]]}/>
+        </div>
+      )
+    }
+
+    ReactDOM.render(
+        <LabAssigApp/>,
+        document.getElementById("root")
+    )
+
+  </script>
+
+</body>
+
+</html>
