@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /* Copying example from edx. In this tutorial we'll work on Lifting state up:
+        Means: When an event error in a component that can invoke the states of its sibling or parent component
+        due to this we need to lift the state up to a parent component that encapuslates all of the components 
+        that need updating. 
+        The parent component will then pass down binded event handlers to the child components.
+        When the child components call the binded event handlers, the parent component will update its state and 
+        may pass the updated state down to child components that may need it.
+    */
+
+    // In this app we've Button, Details, and App Class Component
+
+        class Button extends React.Component{
+          render(){
+            return(<button onClick={()=>{this.props.buttonListener(this.props.id,this.props.name)}} 
+                    style = {{color: this.props.btnActive ? 'red' : 'green' }}>
+              {this.props.name}
+            </button>)
+          }
+        }
+
+        class Details extends React.Component{
+          render(){
+            return(<h1>
+              {this.props.detail}
+            </h1>);
+          }
+        }
+
+        class App extends React.Component{
+          constructor(props){
+            super(props)
+            this.state = {activeBtnArray:[0,0,0,0],detail:""}
+
+            this.clickListener = this.onButtonClick.bind(this)
+          }
+
+          onButtonClick(id,detail){
+            let btnArray=[0,0,0,0]
+            btnArray[id] = 1;
+
+            this.setState({activeBtnArray:btnArray,detail:detail})
+          }
+
+          render(){
+            return(<div>
+            
+              <Button id={0} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[0]} name="Google"/>
+              <Button id={1} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[1]} name="Facebook"/>
+              <Button id={2} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[2]} name="Youtube"/>
+              <Button id={3} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[3]} name="Yahoo"/>
+              <Details detail={this.state.detail}/>
+
+            </div>)
+          }
+
+        }
+
+        ReactDOM.render(
+          <App />,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>

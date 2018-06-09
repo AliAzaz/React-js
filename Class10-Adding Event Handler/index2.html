@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /*
+      Print Table using react state
+    */
+
+        class Info extends React.Component{
+
+          constructor(props){
+            super(props)
+
+            this.state = {txtNo:0,flag:false}
+            // Binding event handler
+            this.txtKeyUp = this.txtKeyUp.bind(this)
+          }
+
+          txtKeyUp(event){
+            
+            let inputNo = event.target.value; // Get the value from input box
+            console.log(inputNo)
+
+            if (inputNo > 0) {
+              this.setState({count:inputNo,flag:true})
+            } else {
+              this.setState({flag:false})
+            }
+
+          }
+
+          render(){
+            return (<div>
+              <input type="tel" placeholder="Enter no.." onKeyUp={this.txtKeyUp} maxLength="5"/>
+              <h2>{this.state.flag && "Table for "+this.state.count}</h2>
+              {this.state.flag && <PrintTable value={this.state.count}/>}
+            </div>)
+          }
+
+        }
+
+          class PrintTable extends React.Component{
+            constructor(props){
+              super(props)
+
+              this.state = {tabNo:this.props.value}
+            }
+
+            componentWillMount(){
+                this.tabArray = [];
+                for (let index = 1; index <= 10; index++) {
+                      let element = <p>{this.state.tabNo + " x " + index + " = " + (index * this.state.tabNo)}</p>
+                      this.tabArray.push(element)
+                }
+                console.log(this.tabArray)
+            }
+
+            componentWillReceiveProps(nextProps){
+                this.tabArray = [];
+                for (let index = 1; index <= 10; index++) {
+                      let element = <p>{nextProps.value + " x " + index + " = " + (index * nextProps.value)}</p>
+                      this.tabArray.push(element)
+                }
+                console.log(this.tabArray)
+            }
+
+            componentWillUnmount(){
+              console.log("unmount")
+            }
+
+            render(){
+              return(<div>{this.tabArray}</div>)
+            }
+
+          }
+
+        ReactDOM.render(
+          <Info />,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    // Extending Previous example
+
+        class Button extends React.Component{
+          render(){
+            return(<button onClick={()=>{this.props.buttonListener(this.props.id)}} 
+                    style = {{color: this.props.btnActive ? 'red' : 'green' }}>
+              {this.props.name}
+            </button>)
+          }
+        }
+
+        class Details extends React.Component{
+          render(){
+            return(<div>
+              {this.props.id != -1 && <iframe width='800' height='500' src={urls(this.props.id)}></iframe>}
+            </div>);
+          }
+        }
+        
+        function urls(id){
+          switch(id){
+            case 0:
+              return "http://kababjees.com/" 
+            case 1:
+              return "http://lalqila.com/"  
+            case 2:
+              return "http://www.saltnpepper.com.pk/"
+            case 3:
+              return "https://pizzahut.com.pk/"
+          }
+        }
+
+        class App extends React.Component{
+          constructor(props){
+            super(props)
+            this.state = {activeBtnArray:[0,0,0,0],activeID:-1}
+
+            this.clickListener = this.onButtonClick.bind(this)
+          }
+
+          onButtonClick(id){
+            let btnArray=[0,0,0,0]
+            btnArray[id] = 1;
+
+            this.setState({activeBtnArray:btnArray,activeID:id})
+          }
+
+          render(){
+            return(<div>
+            
+              <Button id={0} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[0]} name="Kababjees"/>
+              <Button id={1} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[1]} name="Lal Qila"/>
+              <Button id={2} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[2]} name="Salt and Pepper"/>
+              <Button id={3} buttonListener={this.clickListener} btnActive={this.state.activeBtnArray[3]} name="Pizza Hut"/>
+              <Details id={this.state.activeID} />
+
+            </div>)
+          }
+
+        }
+
+        ReactDOM.render(
+          <App />,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>

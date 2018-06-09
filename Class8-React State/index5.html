@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /* Updating state based on previous state:
+        The state can be update in 2 ways:
+        1. Directly update component
+        2. Using callback function
+          . As its asynchronous state, so the callback function is called after state is updated.
+
+      State immutable:
+      What is mutable and immutable: a mutable object can change its state or contents and immutable objects cannot.
+        State is read only so you should not try to manually change the values of the state attributes.
+        If the state needs to be updated, the setState() method is the only way to change the state.
+
+        //incorrect, state should not be mutated directly
+        this.state.message = "new message"
+    */
+        class Info extends React.Component{
+          constructor(props){
+            super(props)
+            //initial state set up
+            this.state = {msg:"initial message"}
+          }
+          componentDidMount(){  //Called after constructor
+              //updating state type 1
+              console.log(this.state.msg + " Mount function: type 1 before")
+              this.setState({msg:this.state.msg + "!"})
+              console.log(this.state.msg + " Mount function: type 1 after")
+
+              //update state type 2
+
+              //.Using callback
+              console.log(this.state.msg + " Mount function: type 2: setstate")
+              this.setState({msg:this.state.msg + "!"},() =>{
+                console.log(this.state.msg + " Mount function: type 2: inside setstate")
+              })
+
+              //.Using prev state
+              console.log(this.state.msg + " Mount function: type 2")
+              this.setState((prevState, props) => {
+                return {msg: prevState.msg + '!'}
+              })
+          }
+          render(){
+            console.log(this.state.msg + " Render function")
+            return <div>Message:{this.state.msg}</div>
+          }
+        }
+
+        ReactDOM.render(
+          <Info/>,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>

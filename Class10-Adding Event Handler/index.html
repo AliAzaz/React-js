@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /* */
+
+        class Info extends React.Component{
+
+          constructor(props){
+            super(props)
+
+            this.state = {count:1}
+            // Binding event handler
+            this.clickBtn = this.clickBtn.bind(this)
+          }
+
+          clickBtn(){
+            console.log("Click here")
+            
+            //Update in this way:
+            //this.setState({count : this.state.count + 1})
+            
+            //Update using condition:
+            this.setState((prevState,props)=>{
+              if (prevState.count < 10) {
+                return {count : this.state.count + 1}
+              } else {
+                return {count : 1}
+              }
+            })
+
+          }
+
+          render(){
+            return <div><button onClick={this.clickBtn}>Click Here</button><h3>Values: {this.state.count}</h3></div>
+          }
+
+        }
+
+        ReactDOM.render(
+          <Info />,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta charset="UTF-8">
+       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+       <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  </head>
+  <body>
+
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+    /* Setting state: The initial state of a Class Component can be declared within the constructor() method.
+       The state of the can be declared as an object with attributes or directly assign values
+       It is important to call super(props) at the beginning of the constructor() method or else the this.props attribute may not work correctly*/
+
+        class Info extends React.Component{
+          constructor(props){
+            super(props)
+            this.state = {info:"Hi!!", msg:"Ali's here!!"} //state is only variable name : we can use any naming convention
+            this.ele = "Class component tutorials"
+          }
+        
+          render(){
+            return <h1>{this.state.info}{this.state.msg} {this.ele}</h1>
+          }
+        }
+
+        ReactDOM.render(
+          <Info/>,
+          document.getElementById("root")
+        )
+
+    </script>
+
+  </body>
+</html>
